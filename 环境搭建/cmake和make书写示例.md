@@ -149,23 +149,27 @@ gcc编译器有许多选项，-o 表示要输出的可执行文件名 -c 表示�
 
   具体的例子解析
 
-  假设test目录下有sub子目录，test中包含有a.c和b.c，sub中包含有sa.c和sb.c
+  假设test目录下有很多文件
 
   
 
   ```
-  src=$(wildcard *.c ./sub/.*c)
-  dir=$(notdir $(src))//绝对路径
-  obj=$(patsubst %.c,%.o,$(dir)) //所有的链接为一个o文件
+  src=$(wildcard *.cpp )
+  dir=$(notdir $(src))
+  obj=$(patsubst %.cpp,%.o,$(dir)) 
+  MAINS=test
   
-  all:
-  	@echo $(src)  //a.c b.c ./sub/sa.c ./sub/sb.c
-  	@echo $(dir)  //a.c b.c sa.c sb.c
-  	@echo $(obj)  //a.o b.o sa.o sb.o
+  all:$(obj)
+  	@echo ${src}  
+  	@echo $(dir)  
+  	@echo $(obj) 
+  	@ g++  $(obj) -o $(MAINS)
   	@echo "end"
   
+  .PHONY:clean
   
-  
+  clean:
+  	rm -rf ./*.o
   ```
 
   

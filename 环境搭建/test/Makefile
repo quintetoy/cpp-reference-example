@@ -1,14 +1,23 @@
-src=$(wildcard *.c ./sub/*.c)
+src=$(wildcard *.cpp )
 dir=$(notdir $(src))
-obj=$(patsubst %.c,%.o,$(dir)) 
+obj=$(patsubst %.cpp,%.o,$(dir)) 
 MAINS=test
 
-
-all:
+all:$(obj)
 	@echo ${src}  
 	@echo $(dir)  
-	@echo $(obj)  	 	
+	@echo $(obj) 
+	@ g++  $(obj) -o $(MAINS)
 	@echo "end"
+
+.PHONY:clean
+
+clean:
+	rm -rf ./*.o
+
+
+
+	
 
 
 
